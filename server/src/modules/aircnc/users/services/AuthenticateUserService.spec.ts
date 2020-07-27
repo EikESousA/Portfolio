@@ -10,7 +10,7 @@ describe('AuthenticateUserService', () => {
     authenticateUserService = new AuthenticateUserService(fakeUsersRepository);
   });
 
-  it('must be able to create a new user!', async () => {
+  it('should be able to create a new user!', async () => {
     const user = await authenticateUserService.execute({
       email: 'teste_1@example.com',
     });
@@ -18,7 +18,7 @@ describe('AuthenticateUserService', () => {
     expect(user).toHaveProperty('id');
   });
 
-  it('must be able to authenticate an existing user!', async () => {
+  it('should be able to authenticate an existing user!', async () => {
     await authenticateUserService.execute({
       email: 'teste_1@example.com',
     });

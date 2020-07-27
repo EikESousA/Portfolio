@@ -39,7 +39,7 @@ describe('RejectionBookingService', () => {
     );
   });
 
-  it('must be able to reject a booking!', async () => {
+  it('should be able to reject a booking!', async () => {
     const user_1 = await authenticateUserService.execute({
       email: 'teste_1@example.com',
     });

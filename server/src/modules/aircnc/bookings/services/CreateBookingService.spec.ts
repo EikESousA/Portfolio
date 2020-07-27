@@ -34,7 +34,7 @@ describe('CreateBookingService', () => {
     );
   });
 
-  it('must be able to create a new booking!', async () => {
+  it('should be able to create a new booking!', async () => {
     const user_1 = await authenticateUserService.execute({
       email: 'teste_1@example.com',
     });

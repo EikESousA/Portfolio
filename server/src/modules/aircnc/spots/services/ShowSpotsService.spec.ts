@@ -25,7 +25,7 @@ describe('ShowDashboardService', () => {
     showSpotsService = new ShowSpotsService(fakeSpotsRepository);
   });
 
-  it('must show all the spots of the researched technology!', async () => {
+  it('should show all the spots of the researched technology!', async () => {
     const user_1 = await authenticateUserService.execute({
       email: 'teste_1@example.com',
     });

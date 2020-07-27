@@ -37,7 +37,7 @@ describe('ApprovalBookingService', () => {
     approvalBookingService = new ApprovalBookingService(fakeBookingRepository);
   });
 
-  it('must be able to approve a booking!', async () => {
+  it('should be able to approve a booking!', async () => {
     const user_1 = await authenticateUserService.execute({
       email: 'teste_1@example.com',
     });

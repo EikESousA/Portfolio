@@ -24,7 +24,7 @@ describe('CreateSpotService', () => {
     );
   });
 
-  it('must be able to create a new spot!', async () => {
+  it('should be able to create a new spot!', async () => {
     const user = await authenticateUserService.execute({
       email: 'teste_1@example.com',
     });
@@ -40,7 +40,7 @@ describe('CreateSpotService', () => {
     expect(String(spot.user)).toEqual(String(user.id));
   });
 
-  it('must not be able to create a new spot because the user does not exist!', async () => {
+  it('should not be able to create a new spot because the user does not exist!', async () => {
     await expect(
       createSpotService.execute({
         user: 'not-exist-user',
