@@ -5,7 +5,7 @@ import PointSchema, {
 } from '@modules/devradar/devs/infra/mongoose/entities/utils/PointSchema';
 
 export interface IDev extends Document {
-  name: string;
+  login: string;
   github_username: string;
   bio: string;
   avatar_url: string;
@@ -14,7 +14,7 @@ export interface IDev extends Document {
 }
 
 const DevSchema: Schema = new Schema({
-  name: {
+  login: {
     type: String,
     required: true,
   },

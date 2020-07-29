@@ -4,7 +4,7 @@ import Spot, {
 } from '@modules/aircnc/spots/infra/mongoose/entities/Spot';
 import ICreateSpotDTO from '@modules/aircnc/spots/dtos/ICreateSpotDTO';
 
-class UsersRepository implements ISpotsRepository {
+export default class UsersRepository implements ISpotsRepository {
   public async create(data: ICreateSpotDTO): Promise<ISpot> {
     const { user, thumbnail, company, techs, price } = data;
     const spot = await Spot.create({ user, thumbnail, company, techs, price });
@@ -26,5 +26,3 @@ class UsersRepository implements ISpotsRepository {
     return spot || undefined;
   }
 }
-
-export default UsersRepository;

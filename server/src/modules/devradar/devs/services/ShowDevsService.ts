@@ -8,7 +8,7 @@ import { IDev } from '@modules/devradar/devs/infra/mongoose/entities/Dev';
 @injectable()
 export default class ShowDevsService {
   constructor(
-    @inject('DevsRepository')
+    @inject('DevRadar_DevsRepository')
     private devsRepository: IDevsRepository,
   ) {}
 

@@ -15,7 +15,7 @@ interface ISearchDev {
 @injectable()
 export default class SearchDevService {
   constructor(
-    @inject('DevsRepository')
+    @inject('DevRadar_DevsRepository')
     private devsRepository: IDevsRepository,
   ) {}
 

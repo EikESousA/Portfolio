@@ -1,20 +1,18 @@
 import 'reflect-metadata';
 import { inject, injectable } from 'tsyringe';
-import axios from 'axios';
+
+import AppError from '@shared/errors/AppError';
 
 import IDevsRepository from '@modules/devradar/devs/repositories/IDevsRepository';
+import IAPIRepository from '@modules/devradar/devs/repositories/IAPIRepository';
 import { IDev } from '@modules/devradar/devs/infra/mongoose/entities/Dev';
+
 import {
   findConnections,
   sendMessage,
 } from '@shared/infra/http/middlewares/websocketio';
-import parseStringAsArray from '../utils/parseStringAsArray';
 
-interface IResponse {
-  login: string;
-  bio: string;
-  avatar_url: string;
-}
+import parseStringAsArray from '@modules/devradar/devs/utils/parseStringAsArray';
 
 interface IDevProps {
   github_username: string;
@@ -26,8 +24,10 @@ interface IDevProps {
 @injectable()
 export default class CreateDevService {
   constructor(
-    @inject('DevsRepository')
+    @inject('DevRadar_DevsRepository')
     private devsRepository: IDevsRepository,
+    @inject('DevRadar_APIRepository')
+    private apiRepository: IAPIRepository,
   ) {}
 
   public async execute({
@@ -36,37 +36,41 @@ export default class CreateDevService {
     latitude,
     longitude,
   }: IDevProps): Promise<IDev> {
-    let dev = await this.devsRepository.findByGithubUsername(github_username);
+    let dev = await this.devsRepository.findByGithubUsername(
+      github_username.toLowerCase(),
+    );
 
     if (!dev) {
-      const apiResponse = await axios.get<IResponse>(
-        `http://api.github.com/users/${github_username}`,
-      );
+      const apiResponse = await this.apiRepository.get(github_username);
 
-      const { login, avatar_url, bio } = apiResponse.data;
+      if (apiResponse) {
+        const { login, avatar_url, bio } = apiResponse;
 
-      const techsArray = parseStringAsArray(techs);
+        const techsArray = parseStringAsArray(techs);
 
-      const location = {
-        type: 'Point',
-        coordinates: [longitude, latitude],
-      };
+        const location = {
+          type: 'Point',
+          coordinates: [longitude, latitude],
+        };
 
-      dev = await this.devsRepository.create({
-        name: login,
-        bio,
-        avatar_url,
-        github_username,
-        techs: techsArray,
-        location,
-      });
+        dev = await this.devsRepository.create({
+          login: login.toLowerCase(),
+          bio,
+          avatar_url,
+          github_username: github_username.toLowerCase(),
+          techs: techsArray,
+          location,
+        });
 
-      const sendSocketMessageTo = findConnections(
-        { latitude, longitude },
-        techsArray,
-      );
+        const sendSocketMessageTo = findConnections(
+          { latitude, longitude },
+          techsArray,
+        );
 
-      sendMessage(sendSocketMessageTo, 'new-dev', dev);
+        sendMessage(sendSocketMessageTo, 'new-dev', dev);
+      } else {
+        throw new AppError('User not found!', 400);
+      }
     }
 
     return dev;

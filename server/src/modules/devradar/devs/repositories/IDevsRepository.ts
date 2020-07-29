@@ -10,6 +10,6 @@ export interface ISearchTechsLocation {
 export default interface IDevRepository {
   create(data: ICreateDevDTO): Promise<IDev>;
   findByGithubUsername(github_username: string): Promise<IDev | undefined>;
-  findByTechsLocation(data: ISearchTechsLocation): Promise<IDev[]>;
   findAllDevs(): Promise<IDev[]>;
+  findByTechsLocation(data: ISearchTechsLocation): Promise<IDev[]>;
 }

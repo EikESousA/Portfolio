@@ -4,17 +4,17 @@ import IDevsRepository, {
 import Dev, { IDev } from '@modules/devradar/devs/infra/mongoose/entities/Dev';
 import ICreateDevDTO from '@modules/devradar/devs/dtos/ICreateDevDTO';
 
-class DevsRepository implements IDevsRepository {
+export default class DevsRepository implements IDevsRepository {
   public async create({
     github_username,
-    name,
+    login,
     avatar_url,
     bio,
     techs,
     location,
   }: ICreateDevDTO): Promise<IDev> {
     const dev = await Dev.create({
-      name,
+      login,
       bio,
       avatar_url,
       github_username,
@@ -29,6 +29,11 @@ class DevsRepository implements IDevsRepository {
   ): Promise<IDev | undefined> {
     const dev = await Dev.findOne({ github_username });
     return dev || undefined;
+  }
+
+  public async findAllDevs(): Promise<IDev[]> {
+    const devs = await Dev.find();
+    return devs;
   }
 
   public async findByTechsLocation({
@@ -52,11 +57,4 @@ class DevsRepository implements IDevsRepository {
     });
     return devs;
   }
-
-  public async findAllDevs(): Promise<IDev[]> {
-    const devs = await Dev.find();
-    return devs;
-  }
 }
-
-export default DevsRepository;

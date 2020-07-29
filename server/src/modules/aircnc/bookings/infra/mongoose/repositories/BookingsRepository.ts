@@ -5,7 +5,7 @@ import Booking, {
 } from '@modules/aircnc/bookings/infra/mongoose/entities/Booking';
 import ICreateBookingDTO from '@modules/aircnc/bookings/dtos/ICreateBookingDTO';
 
-class BookingsRepository implements IBookingsRepository {
+export default class BookingsRepository implements IBookingsRepository {
   public async createWithFullJoin(data: ICreateBookingDTO): Promise<IBooking> {
     const { user, spot, date } = data;
 
@@ -31,9 +31,7 @@ class BookingsRepository implements IBookingsRepository {
   ): Promise<IBooking> {
     booking.approved = approved;
     await booking.save();
-    booking.populate('spot');
-    return booking;
+    const bookingPopulate = booking.populate('spot').execPopulate();
+    return bookingPopulate;
   }
 }
-
-export default BookingsRepository;

@@ -11,7 +11,7 @@ interface IRequestDTO {
 @injectable()
 export default class AuthenticateUserService {
   constructor(
-    @inject('UsersRepository')
+    @inject('AirCnC_UsersRepository')
     private usersRepository: IUsersRepository,
   ) {}
 

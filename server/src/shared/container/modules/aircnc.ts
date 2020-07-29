@@ -10,16 +10,16 @@ import IBookingsRepository from '@modules/aircnc/bookings/repositories/IBookings
 import BookingsRepository from '@modules/aircnc/bookings/infra/mongoose/repositories/BookingsRepository';
 
 container.registerSingleton<IUsersRepository>(
-  'UsersRepository',
+  'AirCnC_UsersRepository',
   UsersRepository,
 );
 
 container.registerSingleton<ISpotsRepository>(
-  'SpotsRepository',
+  'AirCnC_SpotsRepository',
   SpotsRepository,
 );
 
 container.registerSingleton<IBookingsRepository>(
-  'BookingsRepository',
+  'AirCnC_BookingsRepository',
   BookingsRepository,
 );

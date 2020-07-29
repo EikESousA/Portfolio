@@ -10,7 +10,7 @@ import { IBooking } from '@modules/aircnc/bookings/infra/mongoose/entities/Booki
 @injectable()
 export default class RejectionBookingService {
   constructor(
-    @inject('BookingsRepository')
+    @inject('AirCnC_BookingsRepository')
     private bookingsRepository: IBookingsRepository,
   ) {}
 

@@ -18,9 +18,9 @@ export default class LikeController {
     );
 
     if (targetDev.likes.includes(loggedDev.id)) {
-      if (request.connectedUsers && request.io) {
-        const loggedSocket = request.connectedUsers[userString];
-        const targetSocket = request.connectedUsers[dev_id];
+      if (request.connections && request.io) {
+        const loggedSocket = request.connections[userString];
+        const targetSocket = request.connections[dev_id];
 
         if (loggedSocket) {
           request.io.to(loggedSocket).emit('match', targetDev);

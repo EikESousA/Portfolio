@@ -9,7 +9,7 @@ import { IDev } from '@modules/tindev/devs/infra/mongoose/entities/Dev';
 @injectable()
 export default class DislikeDevService {
   constructor(
-    @inject('DevsRepository')
+    @inject('TinDev_DevsRepository')
     private devsRepository: IDevsRepository,
   ) {}
 

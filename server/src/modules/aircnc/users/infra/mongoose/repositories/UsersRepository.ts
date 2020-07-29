@@ -3,7 +3,7 @@ import User, {
   IUser,
 } from '@modules/aircnc/users/infra/mongoose/entities/User';
 
-class UsersRepository implements IUsersRepository {
+export default class UsersRepository implements IUsersRepository {
   public async create(email: string): Promise<IUser> {
     const user = await User.create({ email });
     return user;
@@ -19,5 +19,3 @@ class UsersRepository implements IUsersRepository {
     return user || undefined;
   }
 }
-
-export default UsersRepository;

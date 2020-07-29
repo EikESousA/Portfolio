@@ -5,7 +5,7 @@ import Booking, {
 } from '@modules/aircnc/bookings/infra/mongoose/entities/Booking';
 import ICreateBookingDTO from '@modules/aircnc/bookings/dtos/ICreateBookingDTO';
 
-class BookingsRepository implements IBookingsRepository {
+export default class BookingsRepository implements IBookingsRepository {
   private bookings: IBooking[] = [];
 
   public async createWithFullJoin(data: ICreateBookingDTO): Promise<IBooking> {
@@ -30,5 +30,3 @@ class BookingsRepository implements IBookingsRepository {
     return booking;
   }
 }
-
-export default BookingsRepository;

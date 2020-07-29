@@ -4,7 +4,7 @@ import Spot, {
 } from '@modules/aircnc/spots/infra/mongoose/entities/Spot';
 import ICreateSpotDTO from '@modules/aircnc/spots/dtos/ICreateSpotDTO';
 
-class FakeSpotsRepository implements ISpotsRepository {
+export default class FakeSpotsRepository implements ISpotsRepository {
   private spots: ISpot[] = [];
 
   public async create(data: ICreateSpotDTO): Promise<ISpot> {
@@ -35,5 +35,3 @@ class FakeSpotsRepository implements ISpotsRepository {
     return spot || undefined;
   }
 }
-
-export default FakeSpotsRepository;

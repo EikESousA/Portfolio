@@ -1,49 +1,53 @@
 import 'reflect-metadata';
 import { inject, injectable } from 'tsyringe';
-import axios from 'axios';
 
 import AppError from '@shared/errors/AppError';
 
 import IDevsRepository from '@modules/tindev/devs/repositories/IDevsRepository';
+import IAPIRepository from '@modules/tindev/devs/repositories/IAPIRepository';
 import { IDev } from '@modules/tindev/devs/infra/mongoose/entities/Dev';
 
 interface IResponse {
   name: string;
   bio: string;
   avatar_url: string;
+  message?: string;
+  login: string;
 }
 
 @injectable()
 export default class CreateDevService {
   constructor(
-    @inject('DevsRepository')
+    @inject('TinDev_DevsRepository')
     private devsRepository: IDevsRepository,
+    @inject('TinDev_APIRepository')
+    private apiRepository: IAPIRepository,
   ) {}
 
-  public async execute(user: string): Promise<IDev> {
-    const userExists = await this.devsRepository.findUser(user);
+  public async execute(username: string): Promise<IDev> {
+    const userExists = await this.devsRepository.findByUser(
+      username.toLowerCase(),
+    );
 
     if (userExists) {
       return userExists;
     }
 
-    const githubResponse = await axios.get<IResponse>(
-      `https://api.github.com/users/${user}`,
-    );
+    const githubResponse = await this.apiRepository.get(username);
 
-    if (!githubResponse.data) {
-      throw new AppError('User not found!', 400);
+    if (githubResponse) {
+      const { name, bio, avatar_url, login } = githubResponse;
+
+      const dev = await this.devsRepository.create({
+        user: login.toLowerCase(),
+        name,
+        bio,
+        avatar: avatar_url,
+      });
+
+      return dev;
     }
 
-    const { name, bio, avatar_url } = githubResponse.data;
-
-    const dev = await this.devsRepository.create({
-      user,
-      name,
-      bio,
-      avatar: avatar_url,
-    });
-
-    return dev;
+    throw new AppError('User not found!', 400);
   }
 }

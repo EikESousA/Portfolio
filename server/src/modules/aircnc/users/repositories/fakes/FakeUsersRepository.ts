@@ -3,7 +3,7 @@ import User, {
   IUser,
 } from '@modules/aircnc/users/infra/mongoose/entities/User';
 
-class FakeUsersRepository implements IUsersRepository {
+export default class FakeUsersRepository implements IUsersRepository {
   private users: IUser[] = [];
 
   public async create(email: string): Promise<IUser> {
@@ -23,5 +23,3 @@ class FakeUsersRepository implements IUsersRepository {
     return user || undefined;
   }
 }
-
-export default FakeUsersRepository;

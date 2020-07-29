@@ -1,5 +1,5 @@
 export default interface ICreateDevDTO {
-  name: string;
+  login: string;
   bio: string;
   avatar_url: string;
   github_username: string;

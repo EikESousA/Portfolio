@@ -13,11 +13,11 @@ import ICreateBookingDTO from '@modules/aircnc/bookings/dtos/ICreateBookingDTO';
 @injectable()
 export default class CreateBookingService {
   constructor(
-    @inject('UsersRepository')
+    @inject('AirCnC_UsersRepository')
     private usersRepository: IUsersRepository,
-    @inject('SpotsRepository')
+    @inject('AirCnC_SpotsRepository')
     private spotsRepository: ISpotsRepository,
-    @inject('BookingsRepository')
+    @inject('AirCnC_BookingsRepository')
     private bookingsRepository: IBookingsRepository,
   ) {}
 

@@ -7,7 +7,7 @@ import { ISpot } from '@modules/aircnc/spots/infra/mongoose/entities/Spot';
 @injectable()
 export default class ShowDashboardService {
   constructor(
-    @inject('SpotsRepository')
+    @inject('AirCnC_SpotsRepository')
     private spotsRepository: ISpotsRepository,
   ) {}
 

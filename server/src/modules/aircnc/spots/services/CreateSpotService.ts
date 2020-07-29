@@ -12,9 +12,9 @@ import IUsersRepository from '@modules/aircnc/users/repositories/IUsersRepositor
 @injectable()
 export default class CreateSpotService {
   constructor(
-    @inject('UsersRepository')
+    @inject('AirCnC_UsersRepository')
     private usersRepository: IUsersRepository,
-    @inject('SpotsRepository')
+    @inject('AirCnC_SpotsRepository')
     private spotsRepository: ISpotsRepository,
   ) {}
 
