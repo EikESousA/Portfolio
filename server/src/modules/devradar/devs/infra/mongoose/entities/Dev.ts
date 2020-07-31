@@ -37,4 +37,4 @@ const DevSchema: Schema = new Schema({
   },
 });
 
-export default mongoose.model<IDev>('DevRadar_Dev', DevSchema);
+export default mongoose.model<IDev>('devradar_dev', DevSchema);

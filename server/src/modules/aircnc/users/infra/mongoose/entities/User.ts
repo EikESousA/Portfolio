@@ -8,4 +8,4 @@ const UserSchema: Schema = new Schema({
   email: { type: String, required: true },
 });
 
-export default mongoose.model<IUser>('AirCnC_User', UserSchema);
+export default mongoose.model<IUser>('aircnc_user', UserSchema);

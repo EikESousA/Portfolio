@@ -27,13 +27,13 @@ const DevSchema: Schema = new Schema(
     likes: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'TinDev_Dev',
+        ref: 'tindev_dev',
       },
     ],
     dislikes: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'TinDev_Dev',
+        ref: 'tindev_dev',
       },
     ],
   },
@@ -42,4 +42,4 @@ const DevSchema: Schema = new Schema(
   },
 );
 
-export default mongoose.model<IDev>('TinDev_Dev', DevSchema);
+export default mongoose.model<IDev>('tindev_dev', DevSchema);

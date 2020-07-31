@@ -15,14 +15,14 @@ const BookingSchema: Schema = new Schema({
   approved: { type: Boolean, required: false },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'AirCnC_User',
+    ref: 'aircnc_user',
     required: true,
   },
   spot: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'AirCnC_Spot',
+    ref: 'aircnc_spot',
     required: true,
   },
 });
 
-export default mongoose.model<IBooking>('AirCnC_Booking', BookingSchema);
+export default mongoose.model<IBooking>('aircnc_booking', BookingSchema);

@@ -12,8 +12,8 @@ export default class RejectionBookingsController {
     const booking = await rejectionBookingService.execute(booking_id);
 
     if (booking) {
-      if (request.connectedUsers) {
-        const bookingUserSocket = request.connectedUsers[booking.user];
+      if (request.connections) {
+        const bookingUserSocket = request.connections[booking.user];
 
         if (bookingUserSocket) {
           if (request.io) {

@@ -23,7 +23,7 @@ export default class FakeSpotsRepository implements ISpotsRepository {
 
   public async findByUserId(user_id: string): Promise<ISpot[] | undefined> {
     const spotsUser = this.spots.filter(
-      findSpot => String(findSpot.user) === user_id,
+      findSpot => String(findSpot.user) === String(user_id),
     );
     return spotsUser || undefined;
   }

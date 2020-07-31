@@ -8,18 +8,16 @@ export default class LikeController {
     const { dev_id } = request.params;
     const { user_id } = request.headers;
 
-    const userString = String(user_id);
-
     const likeDevService = container.resolve(LikeDevService);
 
-    const { loggedDev, targetDev } = await likeDevService.execute(
-      userString,
+    const { loggedDev, targetDev } = await likeDevService.execute({
+      user_id: String(user_id),
       dev_id,
-    );
+    });
 
     if (targetDev.likes.includes(loggedDev.id)) {
       if (request.connections && request.io) {
-        const loggedSocket = request.connections[userString];
+        const loggedSocket = request.connections[String(user_id)];
         const targetSocket = request.connections[dev_id];
 
         if (loggedSocket) {

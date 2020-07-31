@@ -7,11 +7,11 @@ export default class DashboardController {
   public async show(request: Request, response: Response): Promise<Response> {
     const { user_id } = request.headers;
 
-    const user_idString = String(user_id);
-
     const showDashboardService = container.resolve(ShowDashboardService);
 
-    const spots = await showDashboardService.execute(user_idString);
+    const spots = await showDashboardService.execute({
+      user_id: String(user_id),
+    });
 
     return response.json(spots);
   }

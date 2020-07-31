@@ -8,11 +8,9 @@ export default class DevController {
   public async index(request: Request, response: Response): Promise<Response> {
     const { user_id } = request.headers;
 
-    const userString = String(user_id);
-
     const showDevsService = container.resolve(ShowDevsService);
 
-    const devs = await showDevsService.execute(userString);
+    const devs = await showDevsService.execute({ user_id: String(user_id) });
 
     return response.json(devs);
   }

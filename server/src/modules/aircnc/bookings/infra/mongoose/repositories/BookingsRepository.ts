@@ -15,7 +15,10 @@ export default class BookingsRepository implements IBookingsRepository {
       date,
     });
 
-    await booking.populate('spot').populate('user').execPopulate();
+    await booking
+      .populate('aircnc_spot')
+      .populate('aircnc_user')
+      .execPopulate();
 
     return booking;
   }
@@ -31,7 +34,7 @@ export default class BookingsRepository implements IBookingsRepository {
   ): Promise<IBooking> {
     booking.approved = approved;
     await booking.save();
-    const bookingPopulate = booking.populate('spot').execPopulate();
+    const bookingPopulate = booking.populate('aircnc_spot').execPopulate();
     return bookingPopulate;
   }
 }

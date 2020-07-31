@@ -8,11 +8,9 @@ export default class SpotController {
   public async index(request: Request, response: Response): Promise<Response> {
     const { tech } = request.query;
 
-    const techString = String(tech);
-
     const showSpotsService = container.resolve(ShowSpotsService);
 
-    const spots = await showSpotsService.execute(techString);
+    const spots = await showSpotsService.execute({ tech: String(tech) });
 
     return response.json(spots);
   }
@@ -24,13 +22,12 @@ export default class SpotController {
 
     const createSpotService = container.resolve(CreateSpotService);
 
-    const techsString = String(techs);
-    const user = String(user_id);
-
-    const techsFormatted = techsString.split(',').map(tech => tech.trim());
+    const techsFormatted = String(techs)
+      .split(',')
+      .map(tech => tech.trim());
 
     const data = {
-      user,
+      user: String(user_id),
       thumbnail: filename,
       company,
       techs: techsFormatted,

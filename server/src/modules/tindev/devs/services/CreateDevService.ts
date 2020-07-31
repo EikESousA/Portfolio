@@ -4,7 +4,7 @@ import { inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 
 import IDevsRepository from '@modules/tindev/devs/repositories/IDevsRepository';
-import IAPIRepository from '@modules/tindev/devs/repositories/IAPIRepository';
+import IAPIGithubProvider from '@modules/tindev/devs/providers/APIGithubProvider/models/IAPIGithubProvider';
 import { IDev } from '@modules/tindev/devs/infra/mongoose/entities/Dev';
 
 interface IResponse {
@@ -20,8 +20,8 @@ export default class CreateDevService {
   constructor(
     @inject('TinDev_DevsRepository')
     private devsRepository: IDevsRepository,
-    @inject('TinDev_APIRepository')
-    private apiRepository: IAPIRepository,
+    @inject('TinDev_APIGithubProvider')
+    private apiGithubProvider: IAPIGithubProvider,
   ) {}
 
   public async execute(username: string): Promise<IDev> {
@@ -33,7 +33,7 @@ export default class CreateDevService {
       return userExists;
     }
 
-    const githubResponse = await this.apiRepository.get(username);
+    const githubResponse = await this.apiGithubProvider.get(username);
 
     if (githubResponse) {
       const { name, bio, avatar_url, login } = githubResponse;

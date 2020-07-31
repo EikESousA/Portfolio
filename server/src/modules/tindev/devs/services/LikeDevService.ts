@@ -6,6 +6,11 @@ import AppError from '@shared/errors/AppError';
 import IDevsRepository from '@modules/tindev/devs/repositories/IDevsRepository';
 import { IDev } from '@modules/tindev/devs/infra/mongoose/entities/Dev';
 
+interface IProps {
+  user_id: string;
+  dev_id: string;
+}
+
 @injectable()
 export default class LikeDevService {
   constructor(
@@ -13,10 +18,10 @@ export default class LikeDevService {
     private devsRepository: IDevsRepository,
   ) {}
 
-  public async execute(
-    dev_id: string,
-    user_id: string,
-  ): Promise<{ loggedDev: IDev; targetDev: IDev }> {
+  public async execute({
+    dev_id,
+    user_id,
+  }: IProps): Promise<{ loggedDev: IDev; targetDev: IDev }> {
     const loggedDev = await this.devsRepository.findById(user_id);
     const targetDev = await this.devsRepository.findById(dev_id);
 

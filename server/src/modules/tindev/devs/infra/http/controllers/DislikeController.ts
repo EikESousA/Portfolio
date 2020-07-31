@@ -8,11 +8,12 @@ export default class DislikeController {
     const { dev_id } = request.params;
     const { user_id } = request.headers;
 
-    const userString = String(user_id);
-
     const dislikeDevService = container.resolve(DislikeDevService);
 
-    const { loggedDev } = await dislikeDevService.execute(userString, dev_id);
+    const { loggedDev } = await dislikeDevService.execute({
+      user_id: String(user_id),
+      dev_id,
+    });
 
     return response.json(loggedDev);
   }

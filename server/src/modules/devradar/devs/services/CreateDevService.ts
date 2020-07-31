@@ -4,7 +4,7 @@ import { inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 
 import IDevsRepository from '@modules/devradar/devs/repositories/IDevsRepository';
-import IAPIRepository from '@modules/devradar/devs/repositories/IAPIRepository';
+import IAPIGithubProvider from '@modules/devradar/devs/providers/APIGithubProvider/models/IAPIGithubProvider';
 import { IDev } from '@modules/devradar/devs/infra/mongoose/entities/Dev';
 
 import {
@@ -26,8 +26,8 @@ export default class CreateDevService {
   constructor(
     @inject('DevRadar_DevsRepository')
     private devsRepository: IDevsRepository,
-    @inject('DevRadar_APIRepository')
-    private apiRepository: IAPIRepository,
+    @inject('DevRadar_APIGithubProvider')
+    private apiGithubProvider: IAPIGithubProvider,
   ) {}
 
   public async execute({
@@ -41,7 +41,7 @@ export default class CreateDevService {
     );
 
     if (!dev) {
-      const apiResponse = await this.apiRepository.get(github_username);
+      const apiResponse = await this.apiGithubProvider.get(github_username);
 
       if (apiResponse) {
         const { login, avatar_url, bio } = apiResponse;

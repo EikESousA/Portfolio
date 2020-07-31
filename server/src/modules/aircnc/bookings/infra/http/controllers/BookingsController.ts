@@ -9,13 +9,13 @@ export default class BookingsController {
     const { spot_id } = request.params;
     const { date } = request.body;
 
-    const userString = String(user_id);
-
-    const data = { user: userString, spot: spot_id, date };
-
     const createBookingService = container.resolve(CreateBookingService);
 
-    const booking = await createBookingService.execute(data);
+    const booking = await createBookingService.execute({
+      user: String(user_id),
+      spot: spot_id,
+      date,
+    });
 
     return response.json(booking);
   }

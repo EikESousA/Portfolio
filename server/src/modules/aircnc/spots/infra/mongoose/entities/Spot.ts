@@ -18,7 +18,7 @@ const SpotSchema: Schema = new Schema(
     techs: { type: [String], required: true },
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'AirCnC_User',
+      ref: 'aircnc_user',
       required: true,
     },
   },
@@ -35,4 +35,4 @@ SpotSchema.virtual('thumbnail_url').get(function thumbnail_url_virtual(this: {
   return `http://${process.env.APP_IP}:3333/files/${this.thumbnail}`;
 });
 
-export default mongoose.model<ISpot>('AirCnC_Spot', SpotSchema);
+export default mongoose.model<ISpot>('aircnc_spot', SpotSchema);
