@@ -56,13 +56,15 @@ export default class IncidentsRepository implements IIncidentsRepository {
     return incidents;
   }
 
-  public async findIncindentId(incident_id: string): Promise<IIncidentDTO> {
+  public async findIncindentId(
+    incident_id: string,
+  ): Promise<IIncidentDTO | undefined> {
     const incident = await connection('thebehero_incident')
       .where('id', incident_id)
       .select('ong_id')
       .first();
 
-    return incident;
+    return incident || undefined;
   }
 
   public async delete(incident_id: string): Promise<void> {

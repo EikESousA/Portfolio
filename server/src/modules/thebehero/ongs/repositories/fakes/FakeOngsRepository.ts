@@ -1,9 +1,9 @@
 import IOngsRepository from '@modules/thebehero/ongs/repositories/IOngsRepository';
 import IOngDTO from '@modules/thebehero/ongs/dtos/IOngDTO';
 
-import connection from '@shared/infra/knex';
+export default class FakeOngsRepository implements IOngsRepository {
+  private ongs: IOngDTO[] = [];
 
-export default class OngsRepository implements IOngsRepository {
   public async create({
     id,
     name,
@@ -12,35 +12,24 @@ export default class OngsRepository implements IOngsRepository {
     city,
     uf,
   }: IOngDTO): Promise<IOngDTO> {
-    await connection('thebehero_ong').insert({
+    const ong: IOngDTO = {
       id,
       name,
       email,
       whatsapp,
       city,
       uf,
-    });
-
-    const ong = await connection('thebehero_ong')
-      .where('id', id)
-      .select('*')
-      .first();
-
+    };
+    this.ongs.push(ong);
     return ong;
   }
 
   public async showAllOngs(): Promise<IOngDTO[]> {
-    const ongs = await connection('thebehero_ong').select('*');
-
-    return ongs;
+    return this.ongs;
   }
 
   public async findOngById(id: string): Promise<IOngDTO | undefined> {
-    const ong = await connection('thebehero_ong')
-      .where('id', id)
-      .select('name')
-      .first();
-
-    return ong;
+    const ong = this.ongs.find(findOng => findOng.id === id);
+    return ong || undefined;
   }
 }

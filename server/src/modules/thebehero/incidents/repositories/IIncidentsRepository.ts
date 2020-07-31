@@ -11,7 +11,7 @@ export default interface IIncidentsRepository {
   }: ICreateIncidentDTO): Promise<IIncidentDTO>;
   count(): Promise<number>;
   findAllIncidentsWithPagesJoinOngs(page: number): Promise<IIncidentJoinOng[]>;
-  findIncindentId(incident_id: string): Promise<IIncidentDTO>;
+  findIncindentId(incident_id: string): Promise<IIncidentDTO | undefined>;
   delete(incident_id: string): Promise<void>;
   findOngId(ong_id: string): Promise<IIncidentDTO[]>;
 }

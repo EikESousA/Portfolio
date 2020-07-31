@@ -22,10 +22,14 @@ export default class DeleteIncidentService {
       incident_id,
     );
 
-    if (incident.ong_id !== ong_id) {
-      throw new AppError('User not authenticate!', 400);
-    }
+    if (incident) {
+      if (incident.ong_id !== ong_id) {
+        throw new AppError('User not authenticate!', 400);
+      }
 
-    await this.incidentsRepository.delete(incident_id);
+      await this.incidentsRepository.delete(incident_id);
+    } else {
+      throw new AppError('Incident not exist!', 400);
+    }
   }
 }

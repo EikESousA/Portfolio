@@ -19,7 +19,7 @@ export default class AuthenticateService {
   ) {}
 
   public async execute({ id }: IProps): Promise<IOngDTO> {
-    const ong = await this.ongsRepository.findOngByIdFirst(id);
+    const ong = await this.ongsRepository.findOngById(id);
 
     if (!ong) {
       throw new AppError('No ONG found with this ID!', 400);
