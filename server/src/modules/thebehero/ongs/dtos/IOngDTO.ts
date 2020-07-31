@@ -2,7 +2,7 @@ export default interface IOngDTO {
   id?: string;
   name: string;
   email: string;
-  whatsapp: number;
+  whatsapp: string;
   city: string;
   uf: string;
 }

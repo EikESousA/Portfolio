@@ -21,7 +21,7 @@ export default class OngController {
     const ong = await createOngService.execute({
       name: String(name),
       email: String(email),
-      whatsapp: Number(whatsapp),
+      whatsapp: String(whatsapp),
       city: String(city),
       uf: String(uf),
     });

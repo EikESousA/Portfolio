@@ -18,7 +18,7 @@ let createIncidentService: CreateIncidentService;
 let deleteIncidentService: DeleteIncidentService;
 let showIncidentsUserService: ShowIncidentsUserService;
 
-describe('DeleteIncidentUserService', () => {
+describe('DeleteIncidentService', () => {
   beforeEach(() => {
     fakeOngsRepository = new FakeOngsRepository();
     fakeGenerateUniqueIdProvider = new FakeGenerateUniqueIdProvider();

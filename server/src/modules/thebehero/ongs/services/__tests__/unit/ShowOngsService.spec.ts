@@ -24,7 +24,7 @@ describe('ShowOngsService', () => {
     const ong_1 = await createOngService.execute({
       name: 'ong_test_1',
       email: 'email_test_1',
-      whatsapp: 11222223333,
+      whatsapp: '11222223333',
       city: 'city_test_1',
       uf: 'uf_test_1',
     });
@@ -32,7 +32,7 @@ describe('ShowOngsService', () => {
     const ong_2 = await createOngService.execute({
       name: 'ong_test_2',
       email: 'email_test_2',
-      whatsapp: 44555556666,
+      whatsapp: '44555556666',
       city: 'city_test_2',
       uf: 'uf_test_2',
     });

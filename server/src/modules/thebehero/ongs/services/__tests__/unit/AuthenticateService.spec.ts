@@ -26,7 +26,7 @@ describe('AuthenticateService', () => {
     const ong = await createOngService.execute({
       name: 'ong_test',
       email: 'email_test',
-      whatsapp: 11222223333,
+      whatsapp: '11222223333',
       city: 'city_test',
       uf: 'uf_test',
     });
