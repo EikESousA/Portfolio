@@ -28,6 +28,4 @@ app.use('/files', express.static(path.resolve(__dirname, '..', 'uploads')));
 app.use(routes);
 app.use(errors());
 
-server.listen(3333, () => {
-  console.log('🚀 Server started on port 3333!');
-});
+export default server;
