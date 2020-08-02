@@ -135,7 +135,7 @@ module.exports = {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
-  testMatch: ['<rootDir>/src/__tests__/unit/**/*.spec.ts'],
+  testMatch: ['<rootDir>/src/__tests__/integration/**/*.spec.ts'],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [

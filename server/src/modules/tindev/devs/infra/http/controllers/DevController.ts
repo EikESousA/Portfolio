@@ -21,9 +21,11 @@ export default class DevController {
     const usernameString = String(username);
 
     const createDevService = container.resolve(CreateDevService);
-
-    const dev = await createDevService.execute(usernameString);
-
-    return response.json(dev);
+    try {
+      const dev = await createDevService.execute(usernameString);
+      return response.json(dev);
+    } catch (err) {
+      return response.status(err.statusCode).json(err.message);
+    }
   }
 }

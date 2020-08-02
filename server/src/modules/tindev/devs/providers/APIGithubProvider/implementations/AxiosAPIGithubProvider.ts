@@ -16,7 +16,6 @@ export default class AxiosAPIGithubProvider implements IAPIGithubProvider {
         bio: apiResponse.data.bio,
         login: apiResponse.data.login,
       };
-      console.log(`api: ${api}`);
       return api;
     } catch (err) {
       return undefined;

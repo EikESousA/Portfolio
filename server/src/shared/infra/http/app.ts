@@ -18,7 +18,9 @@ import routes from '@shared/infra/http/routes';
 const app = express();
 const server = http.createServer(app);
 
-mongoose.connect(mongooseConfig.uri, mongooseConfig.options);
+if (process.env.NODE_BD !== 'test') {
+  mongoose.connect(mongooseConfig.uri_prod, mongooseConfig.options);
+}
 
 setupWebSocket(server);
 

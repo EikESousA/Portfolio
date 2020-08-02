@@ -14,12 +14,13 @@ const dislikeController = new DislikeController();
 devRouter.get(
   '/',
   celebrate({
-    [Segments.HEADERS]: Joi.object().keys({
-      user_id: Joi.number().required(),
-    }),
+    [Segments.HEADERS]: Joi.object({
+      user_id: Joi.string().required(),
+    }).unknown(),
   }),
   devController.index,
 );
+
 devRouter.post(
   '/',
   celebrate({
@@ -29,27 +30,29 @@ devRouter.post(
   }),
   devController.store,
 );
+
 devRouter.post(
   '/:dev_id/likes',
   celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
+    [Segments.PARAMS]: Joi.object({
       dev_id: Joi.string().required(),
-    }),
-    [Segments.HEADERS]: Joi.object().keys({
+    }).unknown(),
+    [Segments.HEADERS]: Joi.object({
       user_id: Joi.string().required(),
-    }),
+    }).unknown(),
   }),
   likeController.store,
 );
+
 devRouter.post(
   '/:dev_id/dislikes',
   celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
+    [Segments.PARAMS]: Joi.object({
       dev_id: Joi.string().required(),
-    }),
-    [Segments.HEADERS]: Joi.object().keys({
+    }).unknown(),
+    [Segments.HEADERS]: Joi.object({
       user_id: Joi.string().required(),
-    }),
+    }).unknown(),
   }),
   dislikeController.store,
 );
