@@ -22,7 +22,11 @@ export default class UsersRepository implements ISpotsRepository {
   }
 
   public async findBySpotId(spot_id: string): Promise<ISpot | undefined> {
-    const spot = await Spot.findById(spot_id);
-    return spot || undefined;
+    try {
+      const spot = await Spot.findOne({ _id: spot_id });
+      return spot || undefined;
+    } catch (err) {
+      return undefined;
+    }
   }
 }

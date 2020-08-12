@@ -11,10 +11,13 @@ export default class IncidentController {
       ShowIncidentsUserService,
     );
 
-    const incidents = await showIncidentsUserService.execute({
-      ong_id: String(ong_id),
-    });
-
-    return response.json(incidents);
+    try {
+      const incidents = await showIncidentsUserService.execute({
+        ong_id: String(ong_id),
+      });
+      return response.json(incidents);
+    } catch (err) {
+      return response.status(err.statusCode).json(err.message);
+    }
   }
 }

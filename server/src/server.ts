@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import server from '@shared/infra/http/app';
 
 server.listen(3333, () => {

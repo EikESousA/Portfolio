@@ -9,10 +9,13 @@ export default class DashboardController {
 
     const showDashboardService = container.resolve(ShowDashboardService);
 
-    const spots = await showDashboardService.execute({
-      user_id: String(user_id),
-    });
-
-    return response.json(spots);
+    try {
+      const spots = await showDashboardService.execute({
+        user_id: String(user_id),
+      });
+      return response.json(spots);
+    } catch (err) {
+      return response.status(err.statusCode).json(err.message);
+    }
   }
 }

@@ -9,20 +9,24 @@ export default class RejectionBookingsController {
 
     const rejectionBookingService = container.resolve(RejectionBookingService);
 
-    const booking = await rejectionBookingService.execute(booking_id);
+    try {
+      const booking = await rejectionBookingService.execute(booking_id);
+      if (booking) {
+        if (request.connections) {
+          const bookingUserSocket = request.connections[booking.user];
 
-    if (booking) {
-      if (request.connections) {
-        const bookingUserSocket = request.connections[booking.user];
-
-        if (bookingUserSocket) {
-          if (request.io) {
-            request.io.to(bookingUserSocket).emit('booking_response', booking);
+          if (bookingUserSocket) {
+            if (request.io) {
+              request.io
+                .to(bookingUserSocket)
+                .emit('booking_response', booking);
+            }
           }
         }
       }
+      return response.json(booking);
+    } catch (err) {
+      return response.status(err.statusCode).json(err.message);
     }
-
-    return response.json(booking);
   }
 }

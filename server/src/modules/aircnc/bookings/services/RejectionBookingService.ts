@@ -23,7 +23,7 @@ export default class RejectionBookingService {
 
     booking = await this.bookingsRepository.updateApprovedByIdJoinSpot(
       booking,
-      true,
+      false,
     );
 
     return booking;

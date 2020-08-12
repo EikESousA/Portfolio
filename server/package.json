@@ -4,8 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "jest": {
-    "testEnvironment": "node",
-    "testTimeout": 30000
+    "testEnvironment": "node"
   },
   "scripts": {
     "build": "tsc",
@@ -13,7 +12,9 @@
     "prod:server": "tsc && node ./dist/src/server.ts",
     "start": "ts-node src/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "test": "cross-env NODE_BD=test jest"
+    "test": "cross-env NODE_BD=test jest --watch --runInBand --detectOpenHandles",
+    "knex:migrate": "knex --knexfile knexfile.ts migrate:latest",
+    "knex:migrate:rollback": "knex --knexfile knexfile.ts migrate:rollback"
   },
   "dependencies": {
     "axios": "^0.19.2",

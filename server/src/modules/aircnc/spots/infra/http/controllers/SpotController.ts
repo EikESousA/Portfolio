@@ -10,9 +10,12 @@ export default class SpotController {
 
     const showSpotsService = container.resolve(ShowSpotsService);
 
-    const spots = await showSpotsService.execute({ tech: String(tech) });
-
-    return response.json(spots);
+    try {
+      const spots = await showSpotsService.execute({ tech: String(tech) });
+      return response.json(spots);
+    } catch (err) {
+      return response.status(err.statusCode).json(err.message);
+    }
   }
 
   public async store(request: Request, response: Response): Promise<Response> {
@@ -34,8 +37,11 @@ export default class SpotController {
       price,
     };
 
-    const spot = await createSpotService.execute(data);
-
-    return response.json(spot);
+    try {
+      const spot = await createSpotService.execute(data);
+      return response.json(spot);
+    } catch (err) {
+      return response.status(err.statusCode).json(err.message);
+    }
   }
 }

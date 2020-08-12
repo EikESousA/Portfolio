@@ -24,8 +24,12 @@ export default class BookingsRepository implements IBookingsRepository {
   }
 
   public async findById(booking_id: string): Promise<IBooking | undefined> {
-    const booking = await Booking.findById(booking_id);
-    return booking || undefined;
+    try {
+      const booking = await Booking.findOne({ _id: booking_id });
+      return booking || undefined;
+    } catch (err) {
+      return undefined;
+    }
   }
 
   public async updateApprovedByIdJoinSpot(

@@ -1,9 +1,9 @@
-interface ICacheConfig {
+interface IMongooseConfig {
   uri_prod: string;
 
   uri_test: string;
 
-  option: {
+  options: {
     useNewUrlParser: boolean;
     useUnifiedTopology: boolean;
     useFindAndModify: boolean;
@@ -24,4 +24,4 @@ export default {
     useFindAndModify: false,
     useCreateIndex: true,
   },
-};
+} as IMongooseConfig;

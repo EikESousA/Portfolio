@@ -15,7 +15,11 @@ export default class UsersRepository implements IUsersRepository {
   }
 
   public async findByUserId(user_id: string): Promise<IUser | undefined> {
-    const user = await User.findById(user_id);
-    return user || undefined;
+    try {
+      const user = await User.findOne({ _id: user_id });
+      return user || undefined;
+    } catch (err) {
+      return undefined;
+    }
   }
 }

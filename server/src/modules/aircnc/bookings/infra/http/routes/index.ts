@@ -17,9 +17,11 @@ bookingsRouter.post(
     [Segments.PARAMS]: Joi.object().keys({
       spot_id: Joi.string().required(),
     }),
-    [Segments.HEADERS]: Joi.object().keys({
-      user_id: Joi.string().required(),
-    }),
+    [Segments.HEADERS]: Joi.object()
+      .keys({
+        user_id: Joi.string().required(),
+      })
+      .unknown(),
     [Segments.BODY]: Joi.object().keys({
       date: Joi.string().required(),
     }),
@@ -29,18 +31,18 @@ bookingsRouter.post(
 bookingsRouter.post(
   '/:booking_id/approvals',
   celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
-      spot_id: Joi.string().required(),
-    }),
+    [Segments.PARAMS]: Joi.object({
+      booking_id: Joi.string().required(),
+    }).unknown(),
   }),
   approvalBookingController.store,
 );
 bookingsRouter.post(
   '/:booking_id/rejections',
   celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
-      spot_id: Joi.string().required(),
-    }),
+    [Segments.PARAMS]: Joi.object({
+      booking_id: Joi.string().required(),
+    }).unknown(),
   }),
   rejectionBookingController.store,
 );

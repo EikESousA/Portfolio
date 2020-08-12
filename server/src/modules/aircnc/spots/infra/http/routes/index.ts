@@ -31,18 +31,22 @@ spotsRouter.post(
       techs: Joi.string().required(),
       price: Joi.string().required(),
     }),
-    [Segments.HEADERS]: Joi.object().keys({
-      user_id: Joi.string().required(),
-    }),
+    [Segments.HEADERS]: Joi.object()
+      .keys({
+        user_id: Joi.string().required(),
+      })
+      .unknown(),
   }),
   spotController.store,
 );
 spotsRouter.get(
   '/dashboard',
   celebrate({
-    [Segments.HEADERS]: Joi.object().keys({
-      user_id: Joi.string().required(),
-    }),
+    [Segments.HEADERS]: Joi.object()
+      .keys({
+        user_id: Joi.string().required(),
+      })
+      .unknown(),
   }),
   dashboardController.show,
 );

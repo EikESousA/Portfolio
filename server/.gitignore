@@ -9,3 +9,6 @@ ormconfig.json
 
 tmp/*
 !tmp/.gitkeep
+
+src/shared/infra/knex/database/db.sqlite
+src/shared/infra/knex/database/test.sqlite

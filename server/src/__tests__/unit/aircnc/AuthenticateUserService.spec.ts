@@ -23,8 +23,6 @@ describe('AuthenticateUserService', () => {
       email: 'teste_1@example.com',
     });
 
-    // fakeUsersRepository.LogUsers();
-
     const user = await authenticateUserService.execute({
       email: 'teste_1@example.com',
     });

@@ -8,9 +8,12 @@ export default class OngController {
   public async index(request: Request, response: Response): Promise<Response> {
     const showOngsService = container.resolve(ShowOngsService);
 
-    const ongs = await showOngsService.execute();
-
-    return response.json(ongs);
+    try {
+      const ongs = await showOngsService.execute();
+      return response.json(ongs);
+    } catch (err) {
+      return response.status(err.statusCode).json(err.message);
+    }
   }
 
   public async store(request: Request, response: Response): Promise<Response> {
@@ -18,14 +21,17 @@ export default class OngController {
 
     const createOngService = container.resolve(CreateOngService);
 
-    const ong = await createOngService.execute({
-      name: String(name),
-      email: String(email),
-      whatsapp: String(whatsapp),
-      city: String(city),
-      uf: String(uf),
-    });
-
-    return response.json(ong);
+    try {
+      const ong = await createOngService.execute({
+        name: String(name),
+        email: String(email),
+        whatsapp: String(whatsapp),
+        city: String(city),
+        uf: String(uf),
+      });
+      return response.json(ong);
+    } catch (err) {
+      return response.status(err.statusCode).json(err.message);
+    }
   }
 }

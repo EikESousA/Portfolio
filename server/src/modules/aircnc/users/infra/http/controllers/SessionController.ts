@@ -9,10 +9,13 @@ export default class SessionController {
 
     const authenticateUserService = container.resolve(AuthenticateUserService);
 
-    const user = await authenticateUserService.execute({
-      email,
-    });
-
-    return response.json(user);
+    try {
+      const user = await authenticateUserService.execute({
+        email,
+      });
+      return response.json(user);
+    } catch (err) {
+      return response.status(err.statusCode).json(err.message);
+    }
   }
 }

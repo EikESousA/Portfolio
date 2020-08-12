@@ -12,7 +12,7 @@ let authenticateUserService: AuthenticateUserService;
 let createSpotService: CreateSpotService;
 let showSpotsService: ShowSpotsService;
 
-describe('ShowDashboardService', () => {
+describe('ShowSpotsService', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeSpotsRepository = new FakeSpotsRepository();

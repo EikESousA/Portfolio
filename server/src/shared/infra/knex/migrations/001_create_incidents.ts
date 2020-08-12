@@ -1,6 +1,8 @@
-/* eslint-disable func-names */
-exports.up = function (knex) {
-  return knex.schema.createTable('thebehero_incident', function (table) {
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import Knex from 'knex';
+
+export async function up(knex: Knex) {
+  return knex.schema.createTable('thebehero_incident', table => {
     table.increments();
 
     table.string('title').notNullable();
@@ -10,8 +12,8 @@ exports.up = function (knex) {
     table.string('ong_id').notNullable();
     table.foreign('ong_id').references('id').inTable('ongs');
   });
-};
+}
 
-exports.down = function (knex) {
+export async function down(knex: Knex) {
   return knex.schema.dropTable('thebehero_incident');
-};
+}

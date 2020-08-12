@@ -10,11 +10,14 @@ export default class DislikeController {
 
     const dislikeDevService = container.resolve(DislikeDevService);
 
-    const { loggedDev } = await dislikeDevService.execute({
-      user_id: String(user_id),
-      dev_id,
-    });
-
-    return response.json(loggedDev);
+    try {
+      const { loggedDev } = await dislikeDevService.execute({
+        user_id: String(user_id),
+        dev_id,
+      });
+      return response.json(loggedDev);
+    } catch (err) {
+      return response.status(err.statusCode).json(err.message);
+    }
   }
 }

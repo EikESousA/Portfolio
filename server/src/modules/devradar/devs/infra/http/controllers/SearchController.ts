@@ -9,12 +9,15 @@ export default class SearchController {
 
     const searchDevService = container.resolve(SearchDevService);
 
-    const devs = await searchDevService.execute({
-      latitude: Number(latitude),
-      longitude: Number(longitude),
-      techs: String(techs),
-    });
-
-    return response.json(devs);
+    try {
+      const devs = await searchDevService.execute({
+        latitude: Number(latitude),
+        longitude: Number(longitude),
+        techs: String(techs),
+      });
+      return response.json(devs);
+    } catch (err) {
+      return response.status(err.statusCode).json(err.message);
+    }
   }
 }

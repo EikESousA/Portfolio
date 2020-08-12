@@ -4,36 +4,83 @@ import mongoose from 'mongoose';
 import server from '@shared/infra/http/app';
 import mongooseConfig from '@config/mongoose';
 
-import Dev from '@modules/tindev/devs/infra/mongoose/entities/Dev';
+import Dev, { IDev } from '@modules/tindev/devs/infra/mongoose/entities/Dev';
 
 describe('LikeDevService', () => {
-  beforeEach(async () => {
-    mongoose.connect(mongooseConfig.uri_test, mongooseConfig.options);
+  beforeAll(async () => {
+    await mongoose.connect(mongooseConfig.uri_test, mongooseConfig.options);
   });
 
-  afterEach(async () => {
-    await Dev.deleteMany({});
+  afterAll(async () => {
     await mongoose.connection.close();
   });
 
-  it('should be able to create a new dev!', async () => {
-    const response_create_1 = await request(server).post('/tindev/devs').send({
-      username: 'eikesousa',
-    });
-
-    const response_create_2 = await request(server).post('/tindev/devs').send({
-      username: 'eikeufs',
-    });
-
-    const response_show = await request(server)
-      .get('/tindev/devs')
-      .set({ user_id: response_create_1.body.id })
+  it('should be able to give a developer like!', async () => {
+    const request_create_dev_1 = await request(server)
+      .post('/tindev/devs')
       .send({
-        dev_id: response_create_2.body.id,
-      });
+        username: 'eikesousa',
+      })
+      .expect(200);
 
-    console.log(response_show.body);
+    const create_dev_1 = request_create_dev_1.body as IDev;
 
-    // expect(response_show.body[0]).toHaveProperty(response_create_2.body.id);
-  });
+    const request_create_dev_2 = await request(server)
+      .post('/tindev/devs')
+      .send({
+        username: 'eikeufs',
+      })
+      .expect(200);
+
+    const create_dev_2 = request_create_dev_2.body as IDev;
+
+    const request_like_dev = await request(server)
+      .post(`/tindev/devs/${create_dev_2._id}/likes`)
+      .set({ user_id: create_dev_1._id })
+      .expect(200);
+
+    const like_dev = request_like_dev.body as IDev;
+
+    const findLike = like_dev.likes.includes(create_dev_2._id);
+
+    expect(findLike).toBeTruthy();
+
+    await Dev.deleteMany({});
+  }, 30000);
+
+  it(`shouldn't be able to like a developer because there is no user!`, async () => {
+    const request_create_dev = await request(server)
+      .post('/tindev/devs')
+      .send({
+        username: 'eikesousa',
+      })
+      .expect(200);
+
+    const create_dev = request_create_dev.body as IDev;
+
+    await request(server)
+      .post(`/tindev/devs/${create_dev._id}/likes`)
+      .set({ user_id: 'user_not_exist' })
+      .expect(400);
+
+    await Dev.deleteMany({});
+  }, 30000);
+
+  it(`shouldn't be able to like a developer because there is no developer!`, async () => {
+    const request_create_dev = await request(server)
+      .post('/tindev/devs')
+      .send({
+        username: 'eikesousa',
+      })
+      .expect(200);
+
+    const create_dev = request_create_dev.body as IDev;
+
+    await request(server)
+      .post(`/tindev/devs/dev_not_exist/likes`)
+      .set({ user_id: create_dev._id })
+      .expect(400);
+
+    await Dev.deleteMany({});
+  }, 30000);
 });

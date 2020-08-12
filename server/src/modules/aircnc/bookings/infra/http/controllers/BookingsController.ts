@@ -11,12 +11,15 @@ export default class BookingsController {
 
     const createBookingService = container.resolve(CreateBookingService);
 
-    const booking = await createBookingService.execute({
-      user: String(user_id),
-      spot: spot_id,
-      date,
-    });
-
-    return response.json(booking);
+    try {
+      const booking = await createBookingService.execute({
+        user: String(user_id),
+        spot: spot_id,
+        date,
+      });
+      return response.json(booking);
+    } catch (err) {
+      return response.status(err.statusCode).json(err.message);
+    }
   }
 }

@@ -8,9 +8,12 @@ export default class DevController {
   public async index(request: Request, response: Response): Promise<Response> {
     const showDevsService = container.resolve(ShowDevsService);
 
-    const devs = await showDevsService.execute();
-
-    return response.json(devs);
+    try {
+      const devs = await showDevsService.execute();
+      return response.json(devs);
+    } catch (err) {
+      return response.status(err.statusCode).json(err.message);
+    }
   }
 
   public async store(request: Request, response: Response): Promise<Response> {
@@ -18,13 +21,16 @@ export default class DevController {
 
     const createDevService = container.resolve(CreateDevService);
 
-    const devs = await createDevService.execute({
-      github_username: String(github_username),
-      techs: String(techs),
-      latitude: Number(latitude),
-      longitude: Number(longitude),
-    });
-
-    return response.json(devs);
+    try {
+      const devs = await createDevService.execute({
+        github_username: String(github_username),
+        techs: String(techs),
+        latitude: Number(latitude),
+        longitude: Number(longitude),
+      });
+      return response.json(devs);
+    } catch (err) {
+      return response.status(err.statusCode).json(err.message);
+    }
   }
 }

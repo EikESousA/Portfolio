@@ -20,13 +20,21 @@ export default class DevsRepository implements IDevsRepository {
   }
 
   public async findById(dev_id: string): Promise<IDev | undefined> {
-    const dev = await Dev.findById(dev_id);
-    return dev || undefined;
+    try {
+      const dev = await Dev.findById(dev_id);
+      return dev || undefined;
+    } catch {
+      return undefined;
+    }
   }
 
   public async findByUser(user: string): Promise<IDev | undefined> {
-    const userFind = await Dev.findOne({ user });
-    return userFind || undefined;
+    try {
+      const userFind = await Dev.findOne({ user });
+      return userFind || undefined;
+    } catch {
+      return undefined;
+    }
   }
 
   public async findAllDevsByUser(

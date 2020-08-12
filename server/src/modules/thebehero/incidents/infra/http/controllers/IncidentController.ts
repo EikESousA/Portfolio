@@ -11,13 +11,15 @@ export default class IncidentController {
 
     const showIncidentsService = container.resolve(ShowIncidentsService);
 
-    const { incidents, count } = await showIncidentsService.execute({
-      page: Number(page),
-    });
-
-    response.header('X-Total-Count', String(count));
-
-    return response.json(incidents);
+    try {
+      const { incidents, count } = await showIncidentsService.execute({
+        page: Number(page),
+      });
+      response.header('X-Total-Count', String(count));
+      return response.json(incidents);
+    } catch (err) {
+      return response.status(err.statusCode).json(err.message);
+    }
   }
 
   public async store(request: Request, response: Response): Promise<Response> {
@@ -26,14 +28,17 @@ export default class IncidentController {
 
     const createIncidentService = container.resolve(CreateIncidentService);
 
-    const incident = await createIncidentService.execute({
-      title,
-      description,
-      value,
-      ong_id: String(ong_id),
-    });
-
-    return response.json(incident);
+    try {
+      const incident = await createIncidentService.execute({
+        title,
+        description,
+        value,
+        ong_id: String(ong_id),
+      });
+      return response.json(incident);
+    } catch (err) {
+      return response.status(err.statusCode).json(err.message);
+    }
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
@@ -42,11 +47,14 @@ export default class IncidentController {
 
     const deleteIncidentService = container.resolve(DeleteIncidentService);
 
-    await deleteIncidentService.execute({
-      incident_id,
-      ong_id: String(ong_id),
-    });
-
-    return response.status(204).send();
+    try {
+      await deleteIncidentService.execute({
+        incident_id,
+        ong_id: String(ong_id),
+      });
+      return response.status(204).send();
+    } catch (err) {
+      return response.status(err.statusCode).json(err.message);
+    }
   }
 }
