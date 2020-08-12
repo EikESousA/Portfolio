@@ -25,7 +25,7 @@ devRouter.get('/', devController.index);
 devRouter.get(
   '/search',
   celebrate({
-    [Segments.BODY]: Joi.object().keys({
+    [Segments.QUERY]: Joi.object().keys({
       techs: Joi.string().required(),
       latitude: Joi.number().required(),
       longitude: Joi.number().required(),

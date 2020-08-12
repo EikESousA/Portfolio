@@ -64,7 +64,7 @@ describe('RejectionBookingService', () => {
 
     await rejectionBookingService.execute(booking.id);
 
-    expect(booking.approved).toEqual(true);
+    expect(booking.approved).toEqual(false);
   });
 
   it('should not be able to reject a booking because the booking does not exist!', async () => {
