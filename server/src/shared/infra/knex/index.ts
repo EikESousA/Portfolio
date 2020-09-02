@@ -11,6 +11,16 @@ const connection = knex({
   migrations: {
     directory: path.resolve(__dirname, 'migrations'),
   },
+  seeds: {
+    directory: path.resolve(
+      __dirname,
+      'src',
+      'shared',
+      'infra',
+      'knex',
+      'seeds',
+    ),
+  },
   useNullAsDefault: true,
 });
 

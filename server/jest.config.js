@@ -19,9 +19,27 @@ module.exports = {
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   collectCoverageFrom: [
-    '<rootDir>/src/modules/**/services/*.ts',
-    '<rootDir>/src/modules/**/infra/http/controllers/*.ts',
-    '<rootDir>/src/modules/**/infra/http/routes/*.ts',
+    '<rootDir>/src/modules/aircnc/bookings/infra/http/routes/*.ts',
+    '<rootDir>/src/modules/aircnc/spots/infra/http/routes/*.ts',
+    '<rootDir>/src/modules/aircnc/users/infra/http/routes/*.ts',
+    '<rootDir>/src/modules/devradar/devs/infra/http/routes/*.ts',
+    '<rootDir>/src/modules/thebehero/incidents/infra/http/routes/*.ts',
+    '<rootDir>/src/modules/thebehero/ongs/infra/http/routes/*.ts',
+    '<rootDir>/src/modules/tindev/devs/infra/http/routes/*.ts',
+    '<rootDir>/src/modules/aircnc/bookings/infra/http/controllers/*.ts',
+    '<rootDir>/src/modules/aircnc/spots/infra/http/controllers/*.ts',
+    '<rootDir>/src/modules/aircnc/users/infra/http/controllers/*.ts',
+    '<rootDir>/src/modules/devradar/devs/infra/http/controllers/*.ts',
+    '<rootDir>/src/modules/thebehero/incidents/infra/http/controllers/*.ts',
+    '<rootDir>/src/modules/thebehero/ongs/infra/http/controllers/*.ts',
+    '<rootDir>/src/modules/tindev/devs/infra/http/controllers/*.ts',
+    '<rootDir>/src/modules/aircnc/bookings/services/*.ts',
+    '<rootDir>/src/modules/aircnc/spots/services/*.ts',
+    '<rootDir>/src/modules/aircnc/users/services/*.ts',
+    '<rootDir>/src/modules/devradar/devs/services/*.ts',
+    '<rootDir>/src/modules/thebehero/incidents/services/*.ts',
+    '<rootDir>/src/modules/thebehero/ongs/services/*.ts',
+    '<rootDir>/src/modules/tindev/devs/services/*.ts',
   ],
 
   // The directory where Jest should output its coverage files
@@ -140,8 +158,14 @@ module.exports = {
 
   // The glob patterns Jest uses to detect test files
   testMatch: [
-    '<rootDir>/src/__tests__/integration/**/*.spec.ts',
-    '<rootDir>/src/__tests__/unit/**/*.spec.ts',
+    '<rootDir>/src/__tests__/unit/aircnc/*.spec.ts',
+    '<rootDir>/src/__tests__/unit/devradar/*.spec.ts',
+    '<rootDir>/src/__tests__/unit/thebehero/*.spec.ts',
+    '<rootDir>/src/__tests__/unit/tindev/*.spec.ts',
+    '<rootDir>/src/__tests__/integration/aircnc/*.spec.ts',
+    '<rootDir>/src/__tests__/integration/devradar/*.spec.ts',
+    '<rootDir>/src/__tests__/integration/thebehero/*.spec.ts',
+    '<rootDir>/src/__tests__/integration/tindev/*.spec.ts',
   ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped

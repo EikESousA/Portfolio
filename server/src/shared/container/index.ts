@@ -2,6 +2,7 @@ import '@shared/container/modules/tindev';
 import '@shared/container/modules/aircnc';
 import '@shared/container/modules/devradar';
 import '@shared/container/modules/thebehero';
+import '@shared/container/modules/ecoleta';
 
 import '@modules/tindev/devs/providers';
 import '@modules/devradar/devs/providers';

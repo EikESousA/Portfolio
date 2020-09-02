@@ -14,7 +14,8 @@
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "test": "cross-env NODE_BD=test jest --watch --runInBand --detectOpenHandles",
     "knex:migrate": "knex --knexfile knexfile.ts migrate:latest",
-    "knex:migrate:rollback": "knex --knexfile knexfile.ts migrate:rollback"
+    "knex:migrate:rollback": "knex --knexfile knexfile.ts migrate:rollback",
+    "knex:seed": "knex --knexfile knexfile.ts seed:run"
   },
   "dependencies": {
     "axios": "^0.19.2",
